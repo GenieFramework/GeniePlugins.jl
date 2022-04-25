@@ -3,8 +3,16 @@ uuid = "07906039-e6ad-44b0-b988-2f2de6a70eec"
 authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
 version = "0.1.0"
 
+[deps]
+Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
+Logging = "56ddb016-857b-54e1-b83d-db4d58db5568"
+Markdown = "d6f4376e-aef5-505a-96c1-9c027394607a"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+
 [compat]
-julia = "1"
+Genie = "5"
+Pkg = "1"
+julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
