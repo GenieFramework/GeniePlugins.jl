@@ -1,7 +1,7 @@
 """
 Functionality for creating and working with Genie plugins.
 """
-
+module GeniePlugins
 
 import Genie
 import Pkg, Markdown, Logging
@@ -12,17 +12,12 @@ const PLUGINS_FOLDER = Genie.config.path_plugins
 const TASKS_FOLDER = Genie.config.path_tasks
 const APP_FOLDER = Genie.config.path_app
 
-const path_prefix = joinpath(@__DIR__, "..", FILES_FOLDER, "app") |> normpath |> relpath
-
-@info "path_prefix $path_prefix"
+const path_prefix = joinpath(@__DIR__, "..", FILES_FOLDER, "new_app") |> normpath |> relpath
 
 const FOLDERS = [ joinpath(path_prefix, APP_FOLDER),
                   joinpath(path_prefix, "db"),
                   joinpath(path_prefix, PLUGINS_FOLDER),
                   joinpath(path_prefix, Genie.config.server_document_root) ]
-
-@info "FOLDERS $FOLDERS"
-
 
 """
     recursive_copy(path::String, dest::String; only_hidden = true, force = false)
@@ -159,5 +154,4 @@ function install(path::String, dest::String; force = false)
   end
 end
 
-
-scaffold("GeniePackageManager")
+end
