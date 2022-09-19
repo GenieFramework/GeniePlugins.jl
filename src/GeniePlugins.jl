@@ -17,7 +17,9 @@ const path_prefix = joinpath(@__DIR__, "..", FILES_FOLDER, "new_app") |> normpat
 const FOLDERS = [ joinpath(path_prefix, APP_FOLDER),
                   joinpath(path_prefix, "db"),
                   joinpath(path_prefix, PLUGINS_FOLDER),
-                  joinpath(path_prefix, Genie.config.server_document_root) ]
+                  joinpath(path_prefix, TASKS_FOLDER),
+                  joinpath(path_prefix, "lib"),
+                  joinpath(path_prefix, Genie.config.server_document_root), ]
 
 """
     recursive_copy(path::String, dest::String; only_hidden = true, force = false)
@@ -93,6 +95,27 @@ function scaffold(plugin_name::String, dest::String = "."; force = false)
   cd(dest)
   Pkg.generate(plugin_name)
   dest = joinpath(dest, plugin_name)
+
+  @show "Trying to find plugin path $dest"
+
+  open(joinpath(dest, "src", "$(plugin_name).jl"), "w") do f
+    write(f, """
+    module $plugin_name
+
+    using Genie
+
+    function install(dest::String; force = false)
+      src = abspath(normpath(joinpath(@__DIR__, "..", Genie.Plugins.FILES_FOLDER)))
+
+      for f in readdir(src)
+        isdir(f) || continue
+        Genie.Plugins.install(joinpath(src, f), dest, force = force)
+      end
+    end
+
+    end # module $plugin_name
+    """)
+  end
 
   @info "Scaffolding file structure"
   mkpath(joinpath(dest, FILES_FOLDER))
