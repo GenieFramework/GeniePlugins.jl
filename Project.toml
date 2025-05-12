@@ -1,7 +1,7 @@
 name = "GeniePlugins"
 uuid = "07906039-e6ad-44b0-b988-2f2de6a70eec"
 authors = ["Adrian Salceanu <adrian.salceanu@gmail.com> and contributors"]
-version = "1.1.1"
+version = "1.0.2"
 
 [deps]
 Genie = "c43c736e-a2d1-11e8-161f-af95117fbd1e"
