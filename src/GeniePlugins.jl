@@ -6,7 +6,6 @@ module GeniePlugins
 import Genie
 import Pkg, Markdown, Logging
 
-
 const FILES_FOLDER = "files"
 const PLUGINS_FOLDER = Genie.config.path_plugins
 const TASKS_FOLDER = Genie.config.path_tasks
@@ -101,7 +100,10 @@ function scaffold(plugin_name::String, dest::String = "."; force = false)
     recursive_copy(path, joinpath(dest, FILES_FOLDER), force = force)
   end
 
-  initializer_path = joinpath(dest, FILES_FOLDER, PLUGINS_FOLDER, lowercase(plugin_name) * ".jl")
+  initializer_dir = joinpath(dest, FILES_FOLDER, PLUGINS_FOLDER)
+  mkpath(initializer_dir)  # Ensure the directory exists
+  initializer_path = joinpath(initializer_dir, lowercase(plugin_name) * ".jl")
+
   @info "Creating plugin initializer at $initializer_path"
   touch(initializer_path)
 
